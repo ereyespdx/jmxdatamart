@@ -41,7 +41,7 @@ public class Main {
 * @param args command line arguments
 */
     public static void main(String[] args) throws SQLException, DBException {
-        if (args.length!=3){
+        if (args.length!=2){
             printHelp();
         }
         else{
@@ -49,25 +49,9 @@ public class Main {
                 printHelp();
             }
             else{
-                Integer dFormat = lookForDataFormat(args);
-                if (dFormat == -1){
-                    printHelp();                
-                }
-                else{
                     String configFile = getConfig(args);
                     ArrayList<File> dbFiles = new ArrayList<File>();
-                    if (dFormat == 0){
-                        //db files are csv directories
-                        dbFiles = getCSVDirList(args);
-                        
-                        for(File dbfile : dbFiles){
-                        
-                            System.out.println(dbfile.getPath());
-                            
-                            
-                        }
-                    }
-                    if (dFormat == 1){
+
                         // db files are HyperSQL files
                         dbFiles = getDbFileList(args);
                         
@@ -90,9 +74,7 @@ public class Main {
                             d2d.importData();
                             d2d.disConnect();
                         }
-                    } 
                 }
-            }
         }
     }
     
@@ -102,9 +84,8 @@ public class Main {
     public static void printHelp(){
         System.out.println("Loader Syntax:");
         System.out.println("Loader -h | h | ? | help , brings up this display");
-        System.out.println("Loader config.ini \\dbfiledirpath dataformat");
+        System.out.println("Loader config.ini \\dbfiledirpath");
         System.out.println(" Loader looks for files/dirs in dbfiledirpath");
-        System.out.println(" dataformat - (csv | CSV | hsql | HSQL)");
         System.out.println("Example: Loader loaderConfig.ini C:\\Extracted");
     }
     
@@ -139,7 +120,7 @@ public class Main {
     }
     
     /**
-     * 
+     * Currently unused
      * @param argArray
      * @return Integer 0 if data format is HyperSQL, 1 if CSV directories
      */
@@ -185,6 +166,7 @@ public class Main {
     }
     
     /**
+     * Currently unused
      * Iterates through the command line arguments looking for directory
      * The method then iterates through all files/directories in that directory looking 
      * for directories that start with "Extractor"
