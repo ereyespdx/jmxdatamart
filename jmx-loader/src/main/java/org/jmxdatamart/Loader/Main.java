@@ -42,8 +42,10 @@ public class Main {
             //System.exit(1);
         }
 
-        String arg0 = "jmx-loader/src/main/java/org/jmxdatamart/Loader/loaderconfig.ini";
-        String arg1 = "HyperSql/";
+//        String arg0 = "jmx-loader/src/main/java/org/jmxdatamart/Loader/loaderconfig.ini";
+//        String arg1 = "HyperSql/";
+        String arg0 = args[0];
+        String arg1 = args[1];
 
         File prop = new File(arg0);
         if (!prop.isFile()){

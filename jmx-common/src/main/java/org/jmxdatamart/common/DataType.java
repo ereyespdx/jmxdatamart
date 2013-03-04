@@ -41,7 +41,14 @@ public enum DataType {
                     "SMALLINT", // 8bit data type in T-SQL is only 0-255
                     "SMALLINT", // Derby doesnt support 1Byte
                     "TINYINT" // -127 to 128 like Java
-            ),
+            )
+            {
+                @Override
+                public void addToSqlPreparedStatement(PreparedStatement ps, int index, Object value) throws SQLException {
+                    Byte t = (Byte)value;
+                    ps.setByte(index, t);
+                }
+            },
 
     SHORT   // 16 bit integer
             (
@@ -50,7 +57,14 @@ public enum DataType {
                     "SMALLINT",
                     "SMALLINT",
                     "SMALLINT"
-            ),
+            )
+            {
+                @Override
+                public void addToSqlPreparedStatement(PreparedStatement ps, int index, Object value) throws SQLException {
+                    Short t = (Short)value;
+                    ps.setShort(index, t);
+                }
+            },
 
     INT     // 32 bit integer
             (
@@ -59,7 +73,14 @@ public enum DataType {
                     "INT",
                     "INT",
                     "INTEGER"
-            ),
+            )
+            {
+                @Override
+                public void addToSqlPreparedStatement(PreparedStatement ps, int index, Object value) throws SQLException {
+                    Integer t = (Integer)value;
+                    ps.setInt(index, t);
+                }
+            },
 
     LONG    // 64 bit integer
             (
@@ -68,7 +89,14 @@ public enum DataType {
                     "BIGINT",
                     "BIGINT",
                     "BIGINT"
-            ),
+            )
+            {
+                @Override
+                public void addToSqlPreparedStatement(PreparedStatement ps, int index, Object value) throws SQLException {
+                    Long t = (Long)value;
+                    ps.setLong(index, t);
+                }
+            },
 
     FLOAT   // 32 bit single precision
             (
@@ -77,7 +105,14 @@ public enum DataType {
                     "REAL", //T-SQL does not conform to standards but this is close 4Bytes
                     "REAL", //Derby has different limits than Java 4Bytes
                     "DOUBLE" //"REAL, FLOAT and DOUBLE values are all stored in the database as java.lang.Double objects"
-            ),
+            )
+            {
+                @Override
+                public void addToSqlPreparedStatement(PreparedStatement ps, int index, Object value) throws SQLException {
+                    Float t = (Float)value;
+                    ps.setFloat(index, t);
+                }
+            },
 
     DOUBLE  // 64 bit double precision
             (
@@ -86,7 +121,14 @@ public enum DataType {
                     "FLOAT(53)", //T-SQL does not conform to standards but this is close 8Bytes
                     "DOUBLE",  //Derby limits are different than Java 8Bytes
                     "DOUBLE"
-            ),
+            )
+            {
+                @Override
+                public void addToSqlPreparedStatement(PreparedStatement ps, int index, Object value) throws SQLException {
+                    Double t = (Double)value;
+                    ps.setDouble(index, t);
+                }
+            },
 
     BOOLEAN   // boolean variable
             (
@@ -95,7 +137,14 @@ public enum DataType {
                     "BIT",
                     "BOOLEAN",
                     "BOOLEAN"
-            ),   
+            )
+            {
+                @Override
+                public void addToSqlPreparedStatement(PreparedStatement ps, int index, Object value) throws SQLException {
+                    Boolean t = (Boolean)value;
+                    ps.setBoolean(index, t);
+                }
+            },   
 
     CHAR    // 16 bit UFT-8 character
             (
@@ -104,7 +153,14 @@ public enum DataType {
                     "NCHAR(1)",
                     "CHAR(1)",
                     "CHAR(1)"
-            ),
+            )
+            {
+                @Override
+                public void addToSqlPreparedStatement(PreparedStatement ps, int index, Object value) throws SQLException {
+                    String t = (String)value;
+                    ps.setString(index, t);
+                }
+            },
 
     STRING  // unlimited-length character sequence type
             (
@@ -113,7 +169,14 @@ public enum DataType {
                     "NVARCHAR(MAX)",
                     "VARCHAR (32672)", // Derby max is Integer.Max_Value, not padded
                     "LONGVARCHAR"
-            ),
+            )
+            {
+                @Override
+                public void addToSqlPreparedStatement(PreparedStatement ps, int index, Object value) throws SQLException {
+                    String t = (String)value;
+                    ps.setString(index, t);
+                }
+            },
     DATETIME(
                 java.util.Date.class,
                 Types.TIMESTAMP,
